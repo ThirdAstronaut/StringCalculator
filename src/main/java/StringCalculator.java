@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 class StringCalculator {
 
     static int add(String numbers) {
@@ -6,11 +8,6 @@ class StringCalculator {
         }
 
         String[] tokens = numbers.split(",");
-        if (tokens.length == 1) {
-            return Integer.valueOf(tokens[0]);
-        } else {
-            return Integer.valueOf(tokens[0]) + Integer.valueOf(tokens[1]);
-        }
+        return Arrays.stream(tokens).mapToInt(Integer::parseInt).sum();
     }
-
 }

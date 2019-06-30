@@ -19,5 +19,10 @@ class StringCalculatorTest {
         assertEquals(3, StringCalculator.add("1,2"));
     }
 
+    @Test
+    void shouldReturnSumOfMoreThanTwoNumbersSeparatedByComma() {
+        assertEquals(16, StringCalculator.add("1,2,3,0,4,6"));
+    }
+
 
 }
