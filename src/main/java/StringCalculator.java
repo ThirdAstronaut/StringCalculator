@@ -7,7 +7,7 @@ class StringCalculator {
             return 0;
         }
 
-        String[] tokens = numbers.split(",");
+        String[] tokens = numbers.split("[,\n]");
         return Arrays.stream(tokens).mapToInt(Integer::parseInt).sum();
     }
 }
