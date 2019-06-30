@@ -40,4 +40,9 @@ class StringCalculatorTest {
         RuntimeException exception = assertThrows(IllegalArgumentException.class, () -> StringCalculator.add("//,\n1,2,-1,-2,-3"));
         assertEquals("negatives not allowed -1 -2 -3", exception.getMessage());
     }
+
+    @Test
+    void shouldIgnoreNumbersBiggerThan1000() {
+        assertEquals(6, StringCalculator.add("1\n2,1001,3\n2000"), "Should return six");
+    }
 }

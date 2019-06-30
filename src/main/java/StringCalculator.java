@@ -32,6 +32,6 @@ class StringCalculator {
             stringBuilder.deleteCharAt(stringBuilder.toString().length()-1);
             throw new IllegalArgumentException("negatives not allowed " + stringBuilder.toString());
 
-        }return Arrays.stream(tokens).mapToInt(Integer::parseInt).sum();
+        }return Arrays.stream(tokens).mapToInt(Integer::parseInt).filter(x -> x < 1_000).sum();
     }
 }
