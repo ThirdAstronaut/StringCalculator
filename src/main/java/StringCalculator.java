@@ -9,7 +9,8 @@ class StringCalculator {
         }
 
         if (numbers.startsWith("//")) {
-            return customDelimiter(numbers.substring(4), String.valueOf(numbers.charAt(2)));
+            int indexOfNewLine = numbers.indexOf("\n");
+            return customDelimiter(numbers.substring(indexOfNewLine+1), numbers.substring(2, indexOfNewLine));
         } else {
 
             return customDelimiter(numbers);
