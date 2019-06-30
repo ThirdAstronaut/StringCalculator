@@ -1,5 +1,6 @@
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.stream.IntStream;
+import java.util.List;
 
 class StringCalculator {
 
@@ -10,23 +11,38 @@ class StringCalculator {
 
         if (numbers.startsWith("//")) {
             int indexOfNewLine = numbers.indexOf("\n");
-            if (numbers.charAt(2) == '[') {
-                return customDelimiter(numbers.substring(indexOfNewLine + 1), numbers.substring(3, indexOfNewLine - 1));
+
+            String[] tokens = numbers.split("");
+            StringBuilder delimitres = new StringBuilder();
+            int regexLength = 1;
+            for (int i = 0; i < tokens.length; i++) {
+                if(tokens[i].equals("[") && i < tokens.length-1){
+                    regexLength = 1;
+                    while(i < tokens.length-1 && !tokens[i+1].equals("]")) {
+                        delimitres.append(tokens[i+1]);
+                        i++;
+                        regexLength++;
+                    }
+                    regexLength--;
+                }
             }
-            return customDelimiter(numbers.substring(indexOfNewLine + 1), numbers.substring(2, indexOfNewLine));
+            if(delimitres.toString().length()==0){
+                return customDelimiter(numbers.substring(indexOfNewLine + 1), numbers.substring(2, indexOfNewLine),indexOfNewLine-2);
+            }else
+            return customDelimiter(numbers.substring(indexOfNewLine + 1), delimitres.toString(), regexLength);
 
         } else {
 
-            return customDelimiter(numbers);
+            return defaultDelimiter(numbers);
         }
     }
 
-    private static int customDelimiter(String numbers) {
-        return customDelimiter(numbers, "[,\n]");
+    private static int defaultDelimiter(String numbers) {
+        return customDelimiter(numbers, "[,\n]", 1);
     }
 
-    private static int customDelimiter(String numbers, String regex) {
-        String[] tokens = numbers.split(regex);
+    private static int customDelimiter(String numbers, String regex, int regexLength) {
+        String[] tokens = numbers.split("["+regex+"]{"+regexLength+"}");
         int[] negatives = Arrays.stream(tokens).mapToInt(Integer::parseInt).filter(x -> x < 0).toArray();
         if (negatives.length > 0) {
             StringBuilder stringBuilder = new StringBuilder();

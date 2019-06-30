@@ -45,9 +45,15 @@ class StringCalculatorTest {
     void shouldIgnoreNumbersBiggerThan1000() {
         assertEquals(6, StringCalculator.add("1\n2,1001,3\n2000"), "Should return six");
     }
+
     @Test
     void shouldReturnSumOfIntegersSeparatedByPassedDelimiterOfAnyLength() {
         assertEquals(3, StringCalculator.add("//[;;;]\n1;;;2"), "Should return three");
+    }
+
+    @Test
+    void shouldReturnSumOfIntegersSeparatedByPassedDifferentDelimiters() {
+        assertEquals(6, StringCalculator.add("//[;][%]\n1;2%3"), "Should return six");
     }
 
 }
