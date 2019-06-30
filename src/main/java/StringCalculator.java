@@ -7,7 +7,20 @@ class StringCalculator {
             return 0;
         }
 
-        String[] tokens = numbers.split("[,\n]");
+        if (numbers.startsWith("//")) {
+            return customDelimiter(numbers.substring(4), String.valueOf(numbers.charAt(2)));
+        } else {
+
+            return customDelimiter(numbers);
+        }
+    }
+
+    private static int customDelimiter(String numbers) {
+        return customDelimiter(numbers, "[,\n]");
+    }
+
+    private static int customDelimiter(String numbers, String regex) {
+        String[] tokens = numbers.split(regex);
         return Arrays.stream(tokens).mapToInt(Integer::parseInt).sum();
     }
 }
