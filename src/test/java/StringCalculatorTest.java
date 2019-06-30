@@ -34,4 +34,10 @@ class StringCalculatorTest {
         assertEquals(3, StringCalculator.add("//;\n1;2"), "Should return 3");
     }
 
+
+    @Test
+    void shouldThrowExceptionWhenNegativeNumbersPassedAndListThemAll() {
+        RuntimeException exception = assertThrows(IllegalArgumentException.class, () -> StringCalculator.add("//,\n1,2,-1,-2,-3"));
+        assertEquals("negatives not allowed -1 -2 -3", exception.getMessage());
+    }
 }
