@@ -10,7 +10,11 @@ class StringCalculator {
 
         if (numbers.startsWith("//")) {
             int indexOfNewLine = numbers.indexOf("\n");
-            return customDelimiter(numbers.substring(indexOfNewLine+1), numbers.substring(2, indexOfNewLine));
+            if (numbers.charAt(2) == '[') {
+                return customDelimiter(numbers.substring(indexOfNewLine + 1), numbers.substring(3, indexOfNewLine - 1));
+            }
+            return customDelimiter(numbers.substring(indexOfNewLine + 1), numbers.substring(2, indexOfNewLine));
+
         } else {
 
             return customDelimiter(numbers);
@@ -24,15 +28,16 @@ class StringCalculator {
     private static int customDelimiter(String numbers, String regex) {
         String[] tokens = numbers.split(regex);
         int[] negatives = Arrays.stream(tokens).mapToInt(Integer::parseInt).filter(x -> x < 0).toArray();
-        if(negatives.length > 0) {
+        if (negatives.length > 0) {
             StringBuilder stringBuilder = new StringBuilder();
             for (int i : negatives) {
                 stringBuilder.append(i);
                 stringBuilder.append(" ");
             }
-            stringBuilder.deleteCharAt(stringBuilder.toString().length()-1);
+            stringBuilder.deleteCharAt(stringBuilder.toString().length() - 1);
             throw new IllegalArgumentException("negatives not allowed " + stringBuilder.toString());
 
-        }return Arrays.stream(tokens).mapToInt(Integer::parseInt).filter(x -> x < 1_000).sum();
+        }
+        return Arrays.stream(tokens).mapToInt(Integer::parseInt).filter(x -> x < 1_000).sum();
     }
 }

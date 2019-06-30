@@ -47,7 +47,7 @@ class StringCalculatorTest {
     }
     @Test
     void shouldReturnSumOfIntegersSeparatedByPassedDelimiterOfAnyLength() {
-        assertEquals(3, StringCalculator.add("//;;;\n1;;;2"), "Should return three");
+        assertEquals(3, StringCalculator.add("//[;;;]\n1;;;2"), "Should return three");
     }
 
 }
